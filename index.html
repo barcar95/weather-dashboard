@@ -19,7 +19,8 @@
             <div class="col-md col-xl-3">
                 <div class="card mb-3">
                     <h2 class="h4 card-header custom-card-header">Search For A City:</h2>
-                    <div class="card-body">
+                    
+                    <div class="card-body" >
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="city-search" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
@@ -31,8 +32,12 @@
             </div>
             <div class="col-md col-xl-9">
                 <div class="card mb-3">
-                    <h2 class="h4 card-header custom-card-header"></h2>
-                    <div class="card-body"></div>
+                    <h2 class="h4 card-header custom-card-header current-header" ><span id="current-city"></span> <span id="current-date"></span> <img id="current-icon" src="" alt=""></h2>
+                    <p id="temp"></p>
+                    <p id="wind"></p>
+                    <p id="humidity"></p>
+                    <!-- current day report disply -->
+                    <div class="card-body" id=" current-day-report"></div>
                 </div>
             </div>
         </div>
@@ -40,6 +45,9 @@
             <div class="col-md col-xl-3">
                 <div class="card mb-3">
                     <div class="card-body">
+                        <ul class="old-searches" id="old">
+
+                        </ul>
 
                     </div>
                 </div>
@@ -51,31 +59,36 @@
                     <section class="row justify-content-around">
                         <div class="col-12 col-sm-6 col-lg-2 mb-3">
                             <div class="card" >
-                                <h3 class="card-header" id="day-one-header"></h3>                  
+                                <h3 class="card-header forecast-card-header" ></h3>   
+                                <img class="card-icon"  alt="">               
                             </div>
                             <!-- <div class="card-body" id="day-one-body"></div>  -->
                         </div>
                         <div class="col-12 col-sm-6 col-lg-2 mb-3">
                             <div class="card">
-                                <h3 class="card-header" id="day-two"></h3>                  
+                                <h3 class="card-header forecast-card-header" id="day-two"></h3>
+                                <img class="card-icon" src="" alt="">                  
                             </div>
                             <div class="card-body"></div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-2 mb-3">
                             <div class="card">
-                                <h3 class="card-header" id="day-three"></h3>                  
+                                <h3 class="card-header forecast-card-header" id="day-three"></h3> 
+                                <img class="card-icon" src="" alt="">                 
                             </div>
                             <div class="card-body"></div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-2 mb-3">
                             <div class="card">
-                                <h3 class="card-header" id="day-four"></h3>                  
+                                <h3 class="card-header forecast-card-header" id="day-four"></h3>      
+                                <img class="card-icon" src="" alt="">            
                             </div>
                             <div class="card-body"></div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-2 mb-3">
                             <div class="card">
-                                <h3 class="card-header" id="day-five"></h3>                  
+                                <h3 class="card-header forecast-card-header" id="day-five"></h3>     
+                                <img class="card-icon" src="" alt="">             
                             </div>
                             <div class="card-body"></div>
                         </div>

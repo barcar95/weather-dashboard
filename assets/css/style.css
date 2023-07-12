@@ -4,3 +4,12 @@
     color: white;
     font-weight: bolder;
 }
+
+.current-header{
+    background-color: darkblue;
+}
+
+.card-icon{
+    height: 20px;
+    width: 20px;
+}

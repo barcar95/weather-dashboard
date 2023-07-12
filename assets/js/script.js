@@ -1,5 +1,7 @@
 var searchButton = document.querySelector('#search-btn');
 var cityInput = document.querySelector('#city-search');
+var oldSearches = document.querySelector('#old');
+var currCity = document.querySelector('#current-city');
 
 // API runs lat and lon inputs and outputs weather data
 function getCoordApi(lat, lon) {
@@ -10,7 +12,31 @@ function getCoordApi(lat, lon) {
         })
         .then(function (data) {
             console.log(data);
-        });
+            var day = new Date();
+            document.querySelector("#current-date").textContent = day.toLocaleDateString();
+            currCity.textContent = data.city.name;
+            document.querySelector('#current-icon').setAttribute("src", "https://openweathermap.org/img/wn/"+data.list[0].weather[0].icon+".png");
+            document.querySelector('#temp').textContent = "Temperature: " + data.list[0].main.temp;
+            // current weather index [0]
+
+            let cardIndex = 0;
+            const card = document.querySelectorAll(".forecast-card-header")
+            console.log(card);
+            for (let i = 0; i < data.list.length; i++) {
+                if(data.list[i].dt_txt.includes("12:00:00")){
+                    console.log(data.list[i]);
+                    card[cardIndex].textContent = new Date(data.list[i].dt * 1000).toLocaleDateString()
+                    document.querySelectorAll('.card-icon')[cardIndex].setAttribute("src", "https://openweathermap.org/img/wn/"+data.list[i].weather[0].icon+".png");
+
+                    // this has to be last in loop
+                    cardIndex++;
+                }
+
+                
+                
+            }
+        })
+    
 }
 
 // This API function extracts lat and lon data from API to plug into getCoordApi function
@@ -21,7 +47,7 @@ function getCityApi(cityName){
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            // console.log(data);
             var lat = data[0].lat;
             var lon = data[0].lon;
             // calls other API function and plugs in lat and lon variables
@@ -31,6 +57,8 @@ function getCityApi(cityName){
 
 // function prevents default and takes text input to plug into getCityApi function
 var formSubmitHandler = function (event){
+    const cityarr = JSON.parse(localStorage.getItem("city")) || [];
+    console.log(cityarr);
     event.preventDefault();
     var citySearched = cityInput.value.trim();
     // conditional checks for valid input and clears out input box
@@ -38,17 +66,41 @@ var formSubmitHandler = function (event){
         getCityApi(citySearched);
         cityInput.value = '';
         // checks local storage for previous searches, if none, new array made.
-        let cityarr = JSON.parse(localStorage.getItem("city")) || [];
-        console.log(cityarr);
         cityarr.push(citySearched)
-
         localStorage.setItem("city", JSON.stringify(cityarr));
         console.log(cityarr)
+        displayOldSearches();
     // returns alert if nothing is searched
     } else {
         alert('Please enter a city name.')
     }
 }
 
+function displayOldSearches(){
+    const cityarr = JSON.parse(localStorage.getItem("city")) || [];
+    console.log(cityarr);
+    oldSearches.textContent = ""
+    // for loop creates list of old entries form local storage
+    for (let i = 0; i < cityarr.length; i++) {
+        const element = cityarr[i];
+        let listOld = document.createElement("li")
+        listOld.setAttribute("class", "old-list")
+        let buttonOld = document.createElement("button")
+        buttonOld.setAttribute("class","btn btn-secondary")
+        buttonOld.textContent = element;
+        buttonOld.onclick = function (event) {
+            console.log(event.target.textContent);
+            getCityApi(event.target.textContent);
+        }
+        listOld.append(buttonOld) 
+        oldSearches.appendChild(listOld)
+    }
+}
 
+function displayCurrentDay(){
+    
+}
+
+displayOldSearches();
 searchButton.addEventListener('click', formSubmitHandler);
+
