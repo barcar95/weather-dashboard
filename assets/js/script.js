@@ -16,17 +16,23 @@ function getCoordApi(lat, lon) {
             document.querySelector("#current-date").textContent = day.toLocaleDateString();
             currCity.textContent = data.city.name;
             document.querySelector('#current-icon').setAttribute("src", "https://openweathermap.org/img/wn/"+data.list[0].weather[0].icon+".png");
-            document.querySelector('#temp').textContent = "Temperature: " + data.list[0].main.temp;
+            document.querySelector('#temp').textContent = "Temperature: " + data.list[0].main.temp + " °F";
+            document.querySelector('#wind').textContent = "Wind: " + data.list[0].wind.speed + " MPH";
+            document.querySelector('#humidity').textContent = "Humidity: " + data.list[0].main.humidity + " %";
             // current weather index [0]
 
             let cardIndex = 0;
             const card = document.querySelectorAll(".forecast-card-header")
             console.log(card);
+            // for loop grabs data with noon times and pulls certain data elements to display on cards
             for (let i = 0; i < data.list.length; i++) {
                 if(data.list[i].dt_txt.includes("12:00:00")){
                     console.log(data.list[i]);
                     card[cardIndex].textContent = new Date(data.list[i].dt * 1000).toLocaleDateString()
                     document.querySelectorAll('.card-icon')[cardIndex].setAttribute("src", "https://openweathermap.org/img/wn/"+data.list[i].weather[0].icon+".png");
+                    document.querySelectorAll('.card-temp')[cardIndex].textContent = "Temp: " + data.list[i].main.temp + " °F";
+                    document.querySelectorAll('.card-wind')[cardIndex].textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                    document.querySelectorAll('.card-humidity')[cardIndex].textContent = "Humidity: " + data.list[i].main.humidity + " %";
 
                     // this has to be last in loop
                     cardIndex++;
